@@ -46,6 +46,11 @@ if __name__ == "__main__":
         else:
             out_path = "result.txt"
 
+        if "noise" in config:
+            noise = config["noise"]
+        else:
+            noise = 0.15
+
     with open(f"{out_path}", "w") as f:
 
         pokemon = factory.create(pokemon, level, status_effect, hp_percentage)
@@ -55,11 +60,9 @@ if __name__ == "__main__":
             results[ball] = []
             f.write(f"{ball}\n")
             for _ in range(int(attempts)):
-                capture = attempt_catch(pokemon, ball)
+                capture = attempt_catch(pokemon, ball, noise)
                 results[ball].append(capture)
                 f.write(f"{capture}\n")
-        # for _ in range(int(attempts)):
-        # print("Noisy: ", attempt_catch(pokemon, ball, 0.15))
 
 
 
