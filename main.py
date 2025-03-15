@@ -10,9 +10,11 @@ if __name__ == "__main__":
         config = json.load(f)
 
         if "pokeball" in config:
-            ball = config["pokeball"]
+            balls = [config["pokeball"]]
+        elif "pokeballs" in config:
+            balls = config["pokeballs"]
         else:
-            ball = "pokeball"
+            balls = ["pokeball"]
 
         if "pokemon" in config:
             pokemon = config["pokemon"]
@@ -39,10 +41,12 @@ if __name__ == "__main__":
         else:
             attempts = 1
 
-        pokemon = factory.create(config["pokemon"], config["level"], config["status_effect"], config["hp_percentage"])
+        pokemon = factory.create(pokemon, level, status_effect, hp_percentage)
 
-
-        print("No noise: ", attempt_catch(pokemon, ball))
-        for _ in range(int(config["attempts"])):
-            print("Noisy: ", attempt_catch(pokemon, ball, 0.15))
+        for ball in balls:
+            print("Ball: ", ball)
+            for _ in range(int(attempts)):
+                print("No noise: ", attempt_catch(pokemon, ball))
+            for _ in range(int(attempts)):
+                print("Noisy: ", attempt_catch(pokemon, ball, 0.15))
 
