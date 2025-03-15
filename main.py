@@ -75,4 +75,5 @@ if __name__ == "__main__":
                     results[info].append(capture)
                     f.write(f"{capture}\n")
 
-    mf.plot_capture_percentage_1A(results, pokemon_name)
+    # mf.plot_capture_percentage_1(results, pokemon_name)
+    mf.plot_capture_effect_percentage_2(results, pokemon_name)
