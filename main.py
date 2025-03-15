@@ -89,4 +89,6 @@ if __name__ == "__main__":
 
     # mf.plot_capture_percentage_1(results, pokemon_name)
 
-    mf.plot_capture_effect_percentage_2(results, pokemon_name)
+    # mf.plot_capture_effect_percentage_2A(results, pokemon_name)
+
+    mf.plot_capture_effect_percentage_2B(results, pokemon_name, hp_percentages)
