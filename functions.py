@@ -39,7 +39,7 @@ def plot_capture_percentage_1(results, pokemon_name):
 def plot_capture_effect_percentage_2(results, pokemon_name):
     effect_percentages = {}
 
-    for (ball, effect), captures in results.items():
+    for (ball, effect,hp, level), captures in results.items():
         true_count = sum(1 for capture in captures if capture[0] is True)
         total_count = len(captures)
         true_percentage = (true_count / total_count) * 100
