@@ -10,7 +10,7 @@ def plot_capture_percentage_1A(results, pokemon_name):
     percentages = {}
 
     for ball, captures in results.items():
-        true_count = sum(1 for capture in captures if capture[0] is True)
+        true_count = sum(1 for capture, effect in captures if capture[0] is True)
         total_count = len(captures)
         true_percentage = (true_count / total_count) * 100
         percentages[ball] = true_percentage
@@ -98,14 +98,14 @@ if __name__ == "__main__":
         results = {}
 
         for ball in balls:
-            results[ball] = {}
+            results[ball] = []
             f.write(f"{ball}\n")
             for effect in status_effects:
                 pokemon = factory.create(pokemon, level, effect, hp_percentage)
                 f.write(f"{effect.value[0]}\n")
                 for _ in range(int(attempts)):
                     capture = attempt_catch(pokemon, ball, noise)
-                    results[ball][effect.value[0]].append(capture)
-                    f.write(f"{capture}\n")
+                    results[ball].append((capture, effect))
+                    f.write(f"{capture},{effect.value[0]}\n")
 
     plot_capture_percentage_1A(results, pokemon._name)
