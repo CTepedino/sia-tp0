@@ -64,14 +64,15 @@ if __name__ == "__main__":
         results = {}
 
         for ball in balls:
-            results[ball] = []
             f.write(f"{ball}\n")
             for effect in status_effects:
+                info = (ball, effect)
+                results[info] = []
                 pokemon = factory.create(pokemon_name, level, effect, hp_percentage)
                 f.write(f"{effect.value[0]}\n")
                 for _ in range(int(attempts)):
                     capture = attempt_catch(pokemon, ball, noise)
-                    results[ball].append((capture, effect))
-                    f.write(f"{capture},{effect.value[0]}\n")
+                    results[info].append(capture)
+                    f.write(f"{capture}\n")
 
     mf.plot_capture_percentage_1A(results, pokemon_name)
