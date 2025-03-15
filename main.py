@@ -41,12 +41,26 @@ if __name__ == "__main__":
         else:
             attempts = 1
 
+        if "out_path" in config:
+            out_path = config["outpath"]
+        else:
+            out_path = "result.txt"
+
+    with open(f"{out_path}", "w") as f:
+
         pokemon = factory.create(pokemon, level, status_effect, hp_percentage)
+        results = {}
 
         for ball in balls:
-            print("Ball: ", ball)
+            results[ball] = []
+            f.write(f"{ball}\n")
             for _ in range(int(attempts)):
-                print("No noise: ", attempt_catch(pokemon, ball))
-           #for _ in range(int(attempts)):
-               #print("Noisy: ", attempt_catch(pokemon, ball, 0.15))
+                capture = attempt_catch(pokemon, ball)
+                results[ball].append(capture)
+                f.write(f"{capture}\n")
+        # for _ in range(int(attempts)):
+        # print("Noisy: ", attempt_catch(pokemon, ball, 0.15))
+
+
+
 
