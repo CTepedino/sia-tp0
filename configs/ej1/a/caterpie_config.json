@@ -1,0 +1,7 @@
+{
+  "hp_percentage": 1,
+  "level": 100,
+  "attempts": 100,
+  "pokeballs": ["pokeball", "ultraball", "fastball", "heavyball"],
+  "pokemon": "caterpie"
+}

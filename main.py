@@ -94,7 +94,7 @@ for bar in bars:
 
 plt.xlabel('Pokeballs')
 plt.ylabel('Porcentaje de Captura Exitosa (%)')
-plt.title('Porcentaje de Captura Exitosa por Pokeball')
+plt.title(pokemon._name.capitalize())
 plt.ylim(0, 100) 
 
 plt.show()
