@@ -58,7 +58,8 @@ if __name__ == "__main__":
             pokemon = "caterpie"
 
         if "status_effect" in config:
-            status_effect = config["status_effect"]
+            status_effect_lookup = {effect.value[0]: effect for effect in StatusEffect}
+            status_effect = status_effect_lookup.get(config["status_effect"], None)
         else:
             status_effect = StatusEffect.NONE
 
