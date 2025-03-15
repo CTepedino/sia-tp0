@@ -47,6 +47,6 @@ if __name__ == "__main__":
             print("Ball: ", ball)
             for _ in range(int(attempts)):
                 print("No noise: ", attempt_catch(pokemon, ball))
-            for _ in range(int(attempts)):
-                print("Noisy: ", attempt_catch(pokemon, ball, 0.15))
+           #for _ in range(int(attempts)):
+               #print("Noisy: ", attempt_catch(pokemon, ball, 0.15))
 

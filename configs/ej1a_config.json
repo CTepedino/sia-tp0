@@ -2,6 +2,6 @@
   "hp_percentage": 1,
   "level": 100,
   "attempts": 100,
-  "pokeball": "pokeball",
+  "pokeballs": ["pokeball", "ultraball", "fastball", "heavyball"],
   "pokemon": "mewtwo"
 }
