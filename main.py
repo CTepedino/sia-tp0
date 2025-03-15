@@ -49,7 +49,7 @@ if __name__ == "__main__":
         if "noise" in config:
             noise = config["noise"]
         else:
-            noise = 0.15
+            noise = 0
 
     with open(f"{out_path}", "w") as f:
 
