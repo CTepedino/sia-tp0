@@ -42,9 +42,11 @@ if __name__ == "__main__":
             hp_percentages = [1]
 
         if "level" in config:
-            level = config["level"]
+            levels = [config["level"]]
+        elif "levels" in config:
+            levels = config["levels"]
         else:
-            level = 100
+            levels = [100]
 
         if "attempts" in config:
             attempts = config["attempts"]
@@ -70,23 +72,25 @@ if __name__ == "__main__":
             for effect in status_effects:
                 f.write(f"{effect.value[0]}\n")
                 for hp_percentage in hp_percentages:
-                    info = (ball, effect, hp_percentage, level)
-                    results[info] = []
-                    pokemon = factory.create(pokemon_name, level, effect, hp_percentage)
-                    for _ in range(int(attempts)):
-                        capture = attempt_catch(pokemon, ball, noise)
-                        results[info].append(capture)
-                        f.write(f"{capture}\n")
+                    f.write(f"{hp_percentages}\n")
+                    for level in levels:
+                        f.write(f"{level}\n")
+                        info = (ball, effect, hp_percentage, level)
+                        results[info] = []
+                        pokemon = factory.create(pokemon_name, level, effect, hp_percentage)
+                        for _ in range(int(attempts)):
+                            capture = attempt_catch(pokemon, ball, noise)
+                            results[info].append(capture)
+                            f.write(f"{capture}\n")
 
     if len(sys.argv) >= 3:
         match sys.argv[2]:
             case "1A":
                 mf.plot_capture_percentage_1(results, pokemon_name)
             case "2A":
-                pass
+                mf.plot_capture_effect_percentage_2(results, pokemon_name)
             case "2B":
                 pass
 
     # mf.plot_capture_percentage_1(results, pokemon_name)
 
-    mf.plot_capture_effect_percentage_2(results, pokemon_name)
