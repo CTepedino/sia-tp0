@@ -59,9 +59,14 @@ if __name__ == "__main__":
 
         if "status_effect" in config:
             status_effect_lookup = {effect.value[0]: effect for effect in StatusEffect}
-            status_effect = status_effect_lookup.get(config["status_effect"], None)
+            status_effects = [status_effect_lookup.get(config["status_effect"], None)]
+        elif "status_effects" in config:
+            status_effect_lookup = {effect.value[0]: effect for effect in StatusEffect}
+            status_effects = []
+            for effect in config["status_effects"]:
+                status_effects.append(status_effect_lookup.get(config["status_effect"], None))
         else:
-            status_effect = StatusEffect.NONE
+            status_effects = [StatusEffect.NONE]
 
         if "hp_percentage" in config:
             hp_percentage = config["hp_percentage"]
@@ -89,15 +94,18 @@ if __name__ == "__main__":
             noise = 0
 
     with open(f"{out_path}", "w") as f:
-        pokemon = factory.create(pokemon, level, status_effect, hp_percentage)
+
         results = {}
 
         for ball in balls:
-            results[ball] = []
+            results[ball] = {}
             f.write(f"{ball}\n")
-            for _ in range(int(attempts)):
-                capture = attempt_catch(pokemon, ball, noise)
-                results[ball].append(capture)
-                f.write(f"{capture}\n")
+            for effect in status_effects:
+                pokemon = factory.create(pokemon, level, effect, hp_percentage)
+                f.write(f"{effect.value[0]}\n")
+                for _ in range(int(attempts)):
+                    capture = attempt_catch(pokemon, ball, noise)
+                    results[ball][effect.value[0]].append(capture)
+                    f.write(f"{capture}\n")
 
     plot_capture_percentage_1A(results, pokemon._name)
