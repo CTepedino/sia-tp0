@@ -1,10 +1,44 @@
 import json
 import sys
-
 import matplotlib.pyplot as plt
 
 from src.catching import attempt_catch
 from src.pokemon import PokemonFactory, StatusEffect
+
+def plot_capture_percentage_1A(results, pokemon_name):
+
+    percentages = {}
+
+    for ball, captures in results.items():
+        true_count = sum(1 for capture in captures if capture[0] is True)
+        total_count = len(captures)
+        true_percentage = (true_count / total_count) * 100
+        percentages[ball] = true_percentage
+
+    balls = list(percentages.keys())
+    values = list(percentages.values())
+
+    fig, ax = plt.subplots()
+    bars = ax.bar(balls, values)
+
+    for bar in bars:
+        height = bar.get_height()
+        if height > -1:  
+            ax.text(
+                bar.get_x() + bar.get_width() / 2,  
+                height + 2,  
+                f'{height:.1f}%',  
+                ha='center',  
+                va='bottom',  
+                color='black'
+            )
+
+    plt.xlabel('Pokeballs', fontweight='bold')
+    plt.ylabel('Porcentaje de Captura Exitosa (%)', fontweight='bold')
+    plt.title( pokemon_name.capitalize())
+    plt.ylim(0, 100)  
+
+    plt.show()
 
 if __name__ == "__main__":
     factory = PokemonFactory("pokemon.json")
@@ -54,7 +88,6 @@ if __name__ == "__main__":
             noise = 0
 
     with open(f"{out_path}", "w") as f:
-
         pokemon = factory.create(pokemon, level, status_effect, hp_percentage)
         results = {}
 
@@ -66,37 +99,4 @@ if __name__ == "__main__":
                 results[ball].append(capture)
                 f.write(f"{capture}\n")
 
-percentages = {}
-
-for ball, captures in results.items():
-    true_count = sum(1 for capture in captures if capture[0] is True)
-    total_count = len(captures)
-    true_percentage = (true_count / total_count) * 100
-    percentages[ball] = true_percentage
-
-balls = list(percentages.keys())
-values = list(percentages.values())
-
-fig, ax = plt.subplots()
-bars = ax.bar(balls, values)
-
-for bar in bars:
-    height = bar.get_height()
-    if(height > -1):
-        ax.text(
-            bar.get_x() + bar.get_width() / 2,  
-            height + 2,  
-            f'{height:.1f}%',  
-            ha='center',  
-            va='bottom',  
-            color='black'  
-        )
-
-plt.xlabel('Pokeballs')
-plt.ylabel('Porcentaje de Captura Exitosa (%)')
-plt.title(pokemon._name.capitalize())
-plt.ylim(0, 100) 
-
-plt.show()
-
-
+    plot_capture_percentage_1A(results, pokemon._name)
