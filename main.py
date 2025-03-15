@@ -58,7 +58,7 @@ if __name__ == "__main__":
         else:
             noise = 0
 
-    if len(sys.argv) == 3:
+    if len(sys.argv) >= 4:
         out_path = sys.argv[3]
     else:
         out_path = "result.txt"
@@ -88,12 +88,12 @@ if __name__ == "__main__":
             case "1A":
                 mf.plot_capture_percentage_1(results, pokemon_name)
             case "2A":
-                mf.plot_capture_effect_percentage_2(results, pokemon_name)
+                mf.plot_capture_effect_percentage_2A(results, pokemon_name)
             case "2B":
-                pass
+                mf.plot_capture_effect_percentage_2B(results, pokemon_name, hp_percentages)
 
     # mf.plot_capture_percentage_1(results, pokemon_name)
 
     # mf.plot_capture_effect_percentage_2A(results, pokemon_name)
 
-    mf.plot_capture_effect_percentage_2B(results, pokemon_name, hp_percentages)
+    # mf.plot_capture_effect_percentage_2B(results, pokemon_name, hp_percentages)
