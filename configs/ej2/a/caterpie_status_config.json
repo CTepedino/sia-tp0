@@ -4,5 +4,5 @@
   "attempts": 100,
   "pokeball": "pokeball",
   "pokemon": "caterpie",
-  "status_effect": "burn"
+  "status_effects": ["poison", "burn", "paralysis", "sleep", "freeze", "none"]
 }
