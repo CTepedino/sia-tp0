@@ -35,9 +35,11 @@ if __name__ == "__main__":
             status_effects = [StatusEffect.NONE]
 
         if "hp_percentage" in config:
-            hp_percentage = config["hp_percentage"]
+            hp_percentages = [config["hp_percentage"]]
+        elif "hp_percentages" in config:
+            hp_percentages = config["hp_percentages"]
         else:
-            hp_percentage = 1
+            hp_percentages = [1]
 
         if "level" in config:
             level = config["level"]
@@ -50,7 +52,7 @@ if __name__ == "__main__":
             attempts = 1
 
         if "out_path" in config:
-            out_path = config["outpath"]
+            out_path = config["out_path"]
         else:
             out_path = "result.txt"
 
@@ -66,13 +68,14 @@ if __name__ == "__main__":
         for ball in balls:
             f.write(f"{ball}\n")
             for effect in status_effects:
-                info = (ball, effect)
-                results[info] = []
-                pokemon = factory.create(pokemon_name, level, effect, hp_percentage)
                 f.write(f"{effect.value[0]}\n")
-                for _ in range(int(attempts)):
-                    capture = attempt_catch(pokemon, ball, noise)
-                    results[info].append(capture)
-                    f.write(f"{capture}\n")
+                for hp_percentage in hp_percentages:
+                    info = (ball, effect, hp_percentage, level)
+                    results[info] = []
+                    pokemon = factory.create(pokemon_name, level, effect, hp_percentage)
+                    for _ in range(int(attempts)):
+                        capture = attempt_catch(pokemon, ball, noise)
+                        results[info].append(capture)
+                        f.write(f"{capture}\n")
 
     mf.plot_capture_percentage_1A(results, pokemon_name)
