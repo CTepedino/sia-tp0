@@ -3,7 +3,6 @@ import numpy as np
 
 import sys
 
-
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         results_path = sys.argv[1]
@@ -12,21 +11,21 @@ if __name__ == "__main__":
 
     with open(results_path, "r") as f:
         pokemon_name = f.readline().strip()
-        pokeball_count = int(f.readline().strip())
+        status_effects_count = int(f.readline().strip())
         data = {}
 
-        pokeballs = []
+        statuses = []
         means = []
         deviations = []
 
-        for _ in range(pokeball_count):
-            pokeballs.append(f.readline().strip())
-            means.append(float(f.readline().strip()) * 100)
-            deviations.append(float(f.readline().strip()) * 100)
+        for _ in range(status_effects_count):
+            statuses.append(f.readline().strip())
+            means.append(float(f.readline().strip())*100)
+            deviations.append(float(f.readline().strip())*100)
 
     plt.figure(figsize=(7, 5))
     bars = plt.bar(
-        pokeballs,
+        statuses,
         means,
         yerr=deviations,
         capsize=5,
@@ -42,10 +41,9 @@ if __name__ == "__main__":
                  color="black"
         )
 
-    plt.xlabel('Pokeballs')
+    plt.xlabel('Efectos de estado')
     plt.ylabel('Porcentaje de Captura Exitosa (%)')
-    plt.title("Probabilidad de captura de " + pokemon_name.capitalize() + " en condiciones ideales")
+    plt.title("Probabilidad de captura de " + pokemon_name.capitalize() + " bajo cierto estado")
     plt.ylim(0, 100)
 
     plt.show()
-

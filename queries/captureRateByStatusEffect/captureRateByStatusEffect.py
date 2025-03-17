@@ -4,9 +4,9 @@ import sys
 import numpy as np
 
 from src.catching import attempt_catch
-from src.pokemon import PokemonFactory, StatusEffect
+from src.pokemon import StatusEffect, PokemonFactory
 
-pokeballs = ["PokeBall", "UltraBall", "FastBall", "HeavyBall"]
+status_effects = [StatusEffect.NONE, StatusEffect.SLEEP, StatusEffect.BURN, StatusEffect.FREEZE, StatusEffect.POISON, StatusEffect.PARALYSIS]
 
 if __name__ == "__main__":
     factory = PokemonFactory("../../pokemon.json")
@@ -14,6 +14,11 @@ if __name__ == "__main__":
         config = json.load(f)
 
         pokemon_name = config["pokemon"]
+
+        if "pokeball" in config:
+            pokeball = config["pokeball"]
+        else:
+            pokeball = "pokeball"
 
         if "attempts" in config:
             attempts = int(config["attempts"])
@@ -25,20 +30,18 @@ if __name__ == "__main__":
         else:
             out_path = "results.txt"
 
-    pokemon = factory.create(pokemon_name, 100, StatusEffect.NONE, 1)
-
     with open(out_path, "w") as f:
-        f.write(f"{pokemon_name}\n{len(pokeballs)}\n")
-        for pokeball in pokeballs:
-            f.write(f"{pokeball}\n")
+        f.write(f"{pokemon_name}\n{len(status_effects)}\n")
+        for status_effect in status_effects:
+            pokemon = factory.create(pokemon_name, 100, status_effect, 1)
+            f.write(f"{status_effect.value[0].capitalize()}\n")
             rates = []
             for _ in range(100):
                 count = 0
                 for _ in range(attempts):
-                    captured, _ = attempt_catch(pokemon, pokeball.lower())
+                    captured, _ = attempt_catch(pokemon, pokeball)
                     if captured:
                         count += 1
-                rates.append(count/attempts)
+                rates.append(count / attempts)
 
             f.write(f"{np.mean(rates)}\n{np.std(rates)}\n")
-
