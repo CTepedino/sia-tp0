@@ -3,6 +3,17 @@ import numpy as np
 
 import sys
 
+from src.pokemon import StatusEffect
+
+status_effects_es = {
+    "None": "Ninguno",
+    "Burn": "Quemadura",
+    "Poison": "Veneno",
+    "Paralysis": "Parálisis",
+    "Sleep": "Dormido",
+    "Freeze": "Congelado"
+}
+
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         results_path = sys.argv[1]
@@ -19,7 +30,7 @@ if __name__ == "__main__":
         deviations = []
 
         for _ in range(status_effects_count):
-            statuses.append(f.readline().strip())
+            statuses.append(status_effects_es[f.readline().strip()])
             means.append(float(f.readline().strip())*100)
             deviations.append(float(f.readline().strip())*100)
 
