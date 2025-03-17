@@ -72,12 +72,13 @@ if __name__ == "__main__":
             for effect in status_effects:
                 f.write(f"{effect.value[0]}\n")
                 for hp_percentage in hp_percentages:
-                    f.write(f"{hp_percentages}\n")
+                    f.write(f"{hp_percentage}\n")
                     for level in levels:
                         f.write(f"{level}\n")
                         info = (ball, effect, hp_percentage, level)
                         results[info] = []
                         pokemon = factory.create(pokemon_name, level, effect, hp_percentage)
+                        f.write(f"{attempts}\n")
                         for _ in range(int(attempts)):
                             capture = attempt_catch(pokemon, ball, noise)
                             results[info].append(capture)

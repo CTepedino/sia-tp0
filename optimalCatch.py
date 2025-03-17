@@ -31,7 +31,7 @@ def main():
         if "attempts" in config:
             attempts = config["attempts"]
         else:
-            attempts = 10000
+            attempts = 1000
 
         if "noise" in config:
             noise = config["noise"]
@@ -54,8 +54,7 @@ def main():
                     optimal_config = {"pokeball": pokeball, "status_effect": status.value[0], "hp_percentage": i/100}
                     highest_rate = rate
 
-
-    print(highest_rate)
+    optimal_config["highest_rate"] = highest_rate
     optimal_config["pokemon"] = pokemon_name
     optimal_config["level"] = level
     with open(out_path, "w") as f:
