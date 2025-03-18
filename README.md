@@ -7,6 +7,7 @@ Trabajo práctico orientativo para la materia Sistemas de Inteligencia Artificia
 objetivo de evaluar la función de captura de un Pokemon.
 
 [Enunciado](docs/SIA_TP0.pdf)
+[Informe](docs/Informe_TP0.pdf)
 
 ### Requisitos
 
@@ -27,6 +28,6 @@ para instalar las dependencias necesarias en el ambiente virtual
 ## Ejecución
 
 ```
-pipenv run python main.py [config_file]
+pipenv run python [query_script] [config_file]
 ```
 
