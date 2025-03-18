@@ -33,7 +33,7 @@ if __name__ == "__main__":
         if "attempts" in config:
             attempts = config["attempts"]
         else:
-            attempts = 10000
+            attempts = 1000
 
         if "noise" in config:
             noise = config["noise"]
@@ -58,5 +58,7 @@ if __name__ == "__main__":
             optimal_config["highest_rate"] = highest_rate
             optimal_config["pokemon"] = pokemon_name
             optimal_config["level"] = level
-            with open(out_path, "w") as f:
-                json.dump(optimal_config, f, ensure_ascii=False, indent=4)
+
+    print(highest_rate)
+    with open(out_path, "w") as f:
+        json.dump(optimal_config, f, ensure_ascii=False, indent=4)
