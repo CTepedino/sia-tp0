@@ -25,11 +25,13 @@ if __name__ == "__main__":
     plt.errorbar(hp_percents, means, yerr=deviations, ecolor="black", capsize=5)
     plt.scatter(hp_percents, means)
     plt.yticks(list(range(0, 110, 10)))
+    plt.hlines(y=list(range(0, 110, 10)), xmin=0, xmax=100, color='gray', linestyle='dotted')
     plt.xticks(list(range(step, 100 + step, step)))
 
     plt.xlabel('HP (%)')
     plt.ylabel('Porcentaje de Captura Exitosa (%)')
     plt.title("Probabilidad de captura de " + pokemon_name.capitalize() + " según su HP")
     plt.ylim(0, 100)
+
 
     plt.show()
