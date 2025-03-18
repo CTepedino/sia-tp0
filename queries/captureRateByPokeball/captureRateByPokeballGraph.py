@@ -13,7 +13,6 @@ if __name__ == "__main__":
     with open(results_path, "r") as f:
         pokemon_name = f.readline().strip()
         pokeball_count = int(f.readline().strip())
-        data = {}
 
         pokeballs = []
         means = []

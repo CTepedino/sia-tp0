@@ -16,7 +16,7 @@ if __name__ == "__main__":
         if "attempts" in config:
             attempts = int(config["attempts"])
         else:
-            attempts = 100
+            attempts = 25
 
         if "pokeball" in config:
             pokeball = config["pokeball"]
@@ -24,14 +24,14 @@ if __name__ == "__main__":
             pokeball = "pokeball"
 
         if "noise" in config:
-            noise = config["noise"]
+            noise = float(config["noise"])
         else:
             noise = 0
 
         if "step" in config:
-            step = config["step"]
+            step = int(config["step"])
         else:
-            step = 0.05
+            step = 5
 
         if "outPath" in config:
             out_path = config["outPath"]
@@ -40,12 +40,11 @@ if __name__ == "__main__":
 
     with open(out_path, "w") as f:
         f.write(f"{pokemon_name}\n{step}\n")
-        for i in range(0, 1 + step, step):
-            pokemon = factory.create(pokemon_name, 100, StatusEffect.NONE, i)
+        for i in range(step, 100 + step, step):
+            f.write(f"{i}\n")
+            pokemon = factory.create(pokemon_name, 100, StatusEffect.NONE, i/100)
             rates = []
             for _ in range(attempts):
                 _, rate = attempt_catch(pokemon, pokeball, noise)
                 rates.append(rate)
             f.write(f"{np.mean(rates)}\n{np.std(rates)}\n")
-
-
