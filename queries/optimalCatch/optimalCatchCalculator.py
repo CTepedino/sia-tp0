@@ -5,7 +5,7 @@ from src.catching import attempt_catch
 from src.pokemon import PokemonFactory, StatusEffect
 
 pokeballs = ["pokeball", "ultraball", "fastball", "heavyball"]
-status_effects = [StatusEffect.NONE, StatusEffect.POISON, StatusEffect.BURN, StatusEffect.PARALYSIS, StatusEffect.SLEEP, StatusEffect.FREEZE]
+status_effects = [StatusEffect.NONE, StatusEffect.SLEEP, StatusEffect.BURN, StatusEffect.PARALYSIS, StatusEffect.POISON, StatusEffect.FREEZE]
 
 def get_catch_rate(pokemon_name, level, attempts, pokeball, status, hp_percent, noise):
     pokemon = factory.create(pokemon_name, level, status, hp_percent)
