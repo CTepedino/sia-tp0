@@ -2,6 +2,7 @@ import json
 import math
 from enum import Enum
 from typing import NamedTuple, Tuple
+import os
 
 
 class Type(str, Enum):
@@ -97,8 +98,9 @@ class Pokemon:
 
 
 class PokemonFactory:
-    def __init__(self, src_file="pokemon.json"):
-        self._src_file = src_file
+    def __init__(self, src_file="../pokemon.json"):
+        self._src_file = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "pokemon.json"))
+        # self._src_file = src_file
 
     def create(
         self, name: str, level: int, status: StatusEffect, hp_percentage: float
